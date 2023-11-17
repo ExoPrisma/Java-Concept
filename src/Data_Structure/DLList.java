@@ -57,9 +57,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
    */
   @Override
   public T get(int index) {
-    if(isInvalidIndex(index)){
-      throw new IndexOutOfBoundsException(index + " is Index Out of Bound, List Size is " + this.size);
-    }
+    isInvalidIndex(index);
 
     Node<T> current;
 
@@ -87,9 +85,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
    */
   @Override
   public void set(int index, T element) {
-    if(isInvalidIndex(index)){
-      throw new IndexOutOfBoundsException(index + " is Index Out of Bound, List Size is " + this.size);
-    }
+    isInvalidIndex(index);
 
     Node<T> current;
 
@@ -129,9 +125,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
    */
   @Override
   public void add(int index, T element) {
-    if(isInvalidIndex(index)){
-      throw new IndexOutOfBoundsException(index + " is Index Out of Bound, List Size is " + this.size);
-    }
+    isInvalidIndex(index);
 
     Node<T> newNode = new Node<T>(element, -1);
 
@@ -344,8 +338,10 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
    * @param index of element in list
    * @return true if valid index
    */
-  private boolean isInvalidIndex(int index){
-    return (index < 0 && index >= this.size);
+  private void isInvalidIndex(int index){
+    if (index < 0 && index >= this.size){
+      throw new IndexOutOfBoundsException(index + " is Index Out of Bound, List Size is " + this.size);
+    }
   }
 
   /** Add element at end with weight
@@ -367,9 +363,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
    * @param element that will be added to list
    */
   public void add(int index, T element, int weight) {
-    if(isInvalidIndex(index)){
-      throw new IndexOutOfBoundsException(index + " is Index Out of Bound, List Size is " + this.size);
-    }
+    isInvalidIndex(index);
 
     Node<T> newNode = new Node<T>(element, weight);
 
@@ -393,12 +387,6 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
     current.prev = newNode;
 
     this.size++;
-  }
-
-  public static void main(String[] args) {
-    DLList<Integer> list = new DLList<>();
-    list.add(90);
-    System.out.println(list);
   }
 }
 
