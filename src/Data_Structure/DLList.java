@@ -160,9 +160,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
    */
   @Override
   public T remove(int index) {
-    if(isInvalidIndex(index)){
-      throw new IndexOutOfBoundsException(index + " is Index Out of Bound, List Size is " + this.size);
-    }
+    isInvalidIndex(index);
 
     Node<T> current;
 
