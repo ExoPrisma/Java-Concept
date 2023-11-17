@@ -2,6 +2,7 @@ package Data_Structure;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.StringJoiner;
 
 public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
   private final Node<T> dummyHead;
@@ -287,21 +288,20 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
    */
   @Override
   public String toString() {
-    StringBuilder result = new StringBuilder();
+    StringJoiner list = new StringJoiner(", ", "[", "]");
     Node<T> current = this.dummyHead.next;
 
-    while (current != null) {
-      if(current != this.dummyTail) {
-        result.append(current.data);
-
-        if (current.next != null && current.next != this.dummyTail) {
-          result.append(", ");
-        }
+    while (current != this.dummyTail) {
+      if(current.data == null){
+        list.add(null);
+      }
+      else{
+        list.add(current.data.toString());
       }
       current = current.next;
     }
 
-    return "[" + result + "]";
+    return list.toString();
   }
 
   /** Return iterator
@@ -339,7 +339,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
     return this.size() - o.size();
   }
 
-  /**
+  /** Validate index
    *
    * @param index of element in list
    * @return true if valid index
@@ -348,7 +348,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
     return (index < 0 && index >= this.size);
   }
 
-  /** Add element at end
+  /** Add element at end with weight
    *
    * @param element that will be added to list
    */
@@ -361,7 +361,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
     this.size++;
   }
 
-  /** Add element at index
+  /** Add element at index with weight
    *
    * @param index of element to be added in list
    * @param element that will be added to list
@@ -393,6 +393,12 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
     current.prev = newNode;
 
     this.size++;
+  }
+
+  public static void main(String[] args) {
+    DLList<Integer> list = new DLList<>();
+    list.add(90);
+    System.out.println(list);
   }
 }
 
