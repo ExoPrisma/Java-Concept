@@ -1,6 +1,6 @@
 package Data_Structure.Tree;
 
-import Data_Structure.DLList;
+import Data_Structure.List.DLList;
 
 public class BSTree<T extends Comparable<T>> implements Tree<T> {
 
