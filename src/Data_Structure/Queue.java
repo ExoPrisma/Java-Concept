@@ -1,5 +1,7 @@
 package Data_Structure;
 
+import Data_Structure.List.DLList;
+
 public class Queue<T> {
   private final DLList<T> queue;
   private int size;

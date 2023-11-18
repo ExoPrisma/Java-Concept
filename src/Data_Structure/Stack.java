@@ -1,5 +1,7 @@
 package Data_Structure;
 
+import Data_Structure.List.DLList;
+
 public class Stack<T> {
   private final DLList<T> stack;
   private int size;
