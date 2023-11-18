@@ -185,7 +185,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
     return current.data;
   }
 
-  /** Remove first element
+  /** Remove first occurence of element
    *
    * @param element to be removed
    * @return element that is removed
@@ -205,7 +205,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
     return null;
   }
 
-  /** Remove all element
+  /** Remove all occurence of element
    *
    * @param element to be removed
    * @return number of element removed
@@ -244,7 +244,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
     return false;
   }
 
-  /** Return deep copy of list
+  /** Clone list
    *
    * @return copy of doubly linked list
    */
@@ -297,7 +297,9 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
   }
 
   /** Return iterator
-   *
+   * <p>
+   *  Iterates through SLList from the first node to the last
+   * </p>
    * @return iterator on list
    */
   @Override
@@ -322,7 +324,9 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
   }
 
   /** Comparison
-   *
+   * <p>
+   *  Comparison by list size
+   * </p>
    * @param o object to be compared
    * @return 0 if equal, > if bigger, < if smaller
    */
@@ -332,9 +336,10 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
   }
 
   /** Validate index
-   *
+   * <p>
+   *  If invalid then throw IndexOutOfBoundsException
+   * </p>
    * @param index of element in list
-   * @return true if valid index
    */
   private void isInvalidIndex(int index){
     if (index < 0 && index >= this.size){
@@ -345,6 +350,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
   /** Add element at end with weight
    *
    * @param element that will be added to list
+   * @param weight of element to be added in list
    */
   public void add(T element, int weight) {
     Node<T> newNode = new Node<T>(element, weight);
@@ -359,6 +365,7 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
    *
    * @param index of element to be added in list
    * @param element that will be added to list
+   * @param weight of element to be added in list
    */
   public void add(int index, T element, int weight) {
     isInvalidIndex(index);

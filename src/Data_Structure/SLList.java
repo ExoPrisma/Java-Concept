@@ -2,6 +2,7 @@ package Data_Structure;
 
 import java.util.Objects;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
@@ -38,18 +39,15 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
   /**
   *
   * @return true if doubly linked list empty
-  *
   */
   @Override
   public boolean isEmpty() {
     return (this.size == 0);
   }
 
-  /**
-   * Get element at index
+  /** Get element at index
    * 
-   * @param index
-   * 
+   * @param index of element in singly linked list
    * @return element at index 
    */
   @Override
@@ -65,11 +63,10 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     return current.data;
   }
 
-  /**
-   * Set data of node at index to element
+  /** Set data at index
    * 
-   * @param index
-   * @param element
+   * @param index of element in doubly linked list
+   * @param element that should be added to list
    */
   @Override
   public void set(int index, T element) {
@@ -84,10 +81,9 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     current.data = element;
   }
 
-  /**
-   * Add element to SLList
+  /** Add element at end
    * 
-   * @param element
+   * @param element that will be added to list
    */
   @Override
   public void add(T element) {
@@ -101,11 +97,10 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     this.size++;
   }
 
-  /**
-   * Add element at index
+  /** Add element at index
    * 
-   * @param index
-   * @param element
+   * @param index of element to be added in list
+   * @param element that will be added to list
    */
   @Override
   public void add(int index, T element) {
@@ -122,12 +117,10 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     this.size++;
   }
 
-  /**
-   * Remove node at index
+  /** Remove element at index
    * 
-   * @param index
-   * 
-   * @return removed data from node element
+   * @param index of element that will be removed
+   * @return element that was removed
    */
   @Override
   public T remove(int index) {
@@ -148,12 +141,10 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     return temp.data;
   }
 
-  /**
-   * Remove first occurence of element
+  /** Remove first occurence of element
    * 
-   * @param element
-   * 
-   * @return removed data from node element 
+   * @param element to be removed
+   * @return element that is removed
    */
   @Override
   public T remove(T element) {
@@ -174,11 +165,9 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     return null;
   }
 
-  /**
-   * Remove all occurence of element
+  /** Remove all occurence of element
    * 
-   * @param element
-   * 
+   * @param element to be removed
    * @return number of element removed
    */
   @Override
@@ -205,12 +194,10 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     return count;
   }
 
-  /**
-   * Check if element is contained 
-   * 
-   * @param element
-   * 
-   * @return true if element is contained  
+  /** Contain element
+   *
+   * @param element searching for in list
+   * @return true if element found
    */
   @Override
   public boolean contain(T element) {
@@ -226,10 +213,9 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     return false;
   }
 
-  /**
-   * Clone SLList
-   * 
-   * @return new deep copy of SLList 
+  /** Clone list
+   *
+   * @return copy of singly linked list
    */
   @Override
   public List<T> clone() {
@@ -244,8 +230,8 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     return newSLList;
   }
 
-  /**
-   * Clear SLList 
+  /** Clear list
+   *  
    */
   @Override
   public void clear() {
@@ -253,10 +239,12 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     this.size = 0;
   }
 
-  /**
-   * Modify to string method to give [data1, data2, data3] format
-   * 
-   * @return string format for System.out.println();
+  /** Custom print
+   * <p>
+   *   Format: [x1, x2, ....]
+   * </p>
+   *
+   * @return print output
    */
   @Override
   public String toString() {
@@ -276,6 +264,11 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     return list.toString();
   }
 
+  /** Equality
+   * 
+   * @param obj to test equality
+   * @return true if both list contains same items in same order
+   */
   @SuppressWarnings("unchecked")
   @Override
   public boolean equals(Object obj){
@@ -305,10 +298,11 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
 
   }
 
-  /**
-   * Create and return iterator that iterates through SLList from the first node to the last
-   * 
-   * @return iterator that iterates through SLList from the first node to the last  
+  /** Return iterator
+   * <p>
+   *  Iterates through SLList from the first node to the last
+   * </p>
+   * @return iterator on list
    */
   @Override
   public Iterator<T> iterator() {
@@ -321,17 +315,22 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
 
       @Override
       public T next() {
-        if(hasNext()){
-          current = current.next;
-          return current.data;
+        if(!hasNext()){
+          throw new NoSuchElementException("No next element");
         }
-        return null;
+        T data = current.data;
+        current = current.next;
+        return data;
       }
     };
   }
 
-  /**
-   * Compare two SLList depending on their size
+  /** Comparison
+   * <p>
+   *  Comparison by list size
+   * </p>
+   * @param o object to be compared
+   * @return 0 if equal, > if bigger, < if smaller
    */
   @Override
   public int compareTo(SLList<T> o) {
@@ -344,10 +343,11 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     return 0;
   }
 
-  /**
-   * Check if valid index else throw IndexOutOfBoundsException
-   *  
-   * @param index
+  /** Validate index
+   * <p>
+   *  If invalid then throw IndexOutOfBoundsException
+   * </p>
+   * @param index of element in list
    */
   private void isInvalidIndex(int index){
     if (index < 0 && index >= this.size){
@@ -355,11 +355,10 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     }
   }
 
-  /**
-   * Add element to end of list with weight
-   * 
-   * @param element
-   * @param weight 
+  /** Add element at end with weight
+   *
+   * @param element that will be added to list
+   * @param weight of element
    */
   public void add(T element, int weight) {
     Node<T> current = this.dummyHead;
@@ -371,12 +370,11 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     this.size++;
   }
 
-  /**
-   * Add element at index with weight
-   * 
-   * @param index
-   * @param element
-   * @param weight
+  /** Add element at index with weight
+   *
+   * @param index of element to be added in list
+   * @param element that will be added to list
+   * @param weight of element to be added in list
    */
   public void add(int index, T element, int weight) {
     isInvalidIndex(index);
@@ -390,8 +388,5 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
     current.next = new Node<T>(element, weight);
     current.next.next = temp;
     this.size++;
-  }
-
-  public static void main(String[] args) {
   }
 }
