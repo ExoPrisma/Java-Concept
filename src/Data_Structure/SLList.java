@@ -118,7 +118,8 @@ public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
   }
 
   /** Remove element at index
-   * 
+   *
+   *  
    * @param index of element that will be removed
    * @return element that was removed
    */
