@@ -296,6 +296,17 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
     return list.toString();
   }
 
+  /** Equality
+   * 
+   * @param obj to test equality
+   * @return true if both list contains same items in same order
+   */
+  @Override
+  public boolean equals(Object obj){
+    //TODO
+    return true;
+  }
+
   /** Return iterator
    * <p>
    *  Iterates through SLList from the first node to the last
