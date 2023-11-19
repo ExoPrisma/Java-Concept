@@ -1,3 +1,5 @@
+//TODO FIX DEPTH within insert/deletion
+//TODO FIX size within insert/deletion
 package Data_Structure.Tree;
 
 import Data_Structure.List.DLList;
@@ -100,6 +102,8 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
   public BSTree(T rootData){
     this.root = new BSTNode<>(rootData);
   }
+
+  //TODO copy constructor
 
   /** Get height of BST
    * 
@@ -332,5 +336,14 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
     String rightStr = treeToString(node.rightChild);
 
     return "(" + node.data + ", " + leftStr + ", " + rightStr + ")";
+  }
+
+  /**
+   * 
+   */
+  @Override
+  public boolean equals(Object obj){
+    //TODO
+    return true;
   }
 }
