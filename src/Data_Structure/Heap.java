@@ -110,7 +110,7 @@ public abstract class Heap<T extends Comparable<T>>{
       return false;
     }
     else{
-      return this.toArray().equals(((Heap<T>)obj).toArray())
+      return this.toArray().equals(((Heap<T>)obj).toArray());
     }
   }
 }
