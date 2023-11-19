@@ -14,5 +14,4 @@ public interface List<T> {
   boolean contain(T element);
   List<T> clone();
   void clear();
-
 }
