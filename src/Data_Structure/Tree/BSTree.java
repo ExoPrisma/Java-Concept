@@ -53,6 +53,22 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
 
   /**
    * 
+   * @return left child
+   */
+  public BSTNode<T> getLeftChild(){
+    return this.leftChild;
+  }
+
+  /**
+   * 
+   * @return right child
+   */
+  public BSTNode<T> getRightChild(){
+    return this.rightChild;
+  }
+
+  /**
+   * 
    * @return list of children of node
    */
   @Override
@@ -338,12 +354,40 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
     return "(" + node.data + ", " + leftStr + ", " + rightStr + ")";
   }
 
-  /**
+  /** Equality
    * 
+   * @param obj to test equality
+   * @return true if both BST contains same Node in same order
    */
+  @SuppressWarnings("unchecked")
   @Override
   public boolean equals(Object obj){
-    //TODO
-    return true;
+    if(this == obj){
+      return true;
+    }
+    else if(obj == null || obj.getClass() != this.getClass()){
+      return false;
+    }
+    else{
+      BSTree<T> otherTree = (BSTree<T>) obj;
+      return equal(this.root, otherTree.root);
+    }
+  }
+  /** Equality between two BSTrees
+  * 
+  * @return true if two BSTree are the same
+  */ 
+  private boolean equal(BSTNode<T> node1, BSTNode<T> node2) {
+    if (node1 == null && node2 == null) {
+      return true;
+    } 
+    else if (node1 == null || node2 == null) {
+      return false;
+    } 
+    else {
+      return (node1.equals(node2)) &&
+        equal(node1.getLeftChild(), node2.getLeftChild()) &&
+        equal(node1.getRightChild(), node2.getRightChild());
+    }
   }
 }
