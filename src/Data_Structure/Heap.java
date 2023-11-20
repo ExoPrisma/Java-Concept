@@ -3,9 +3,13 @@ package Data_Structure;
 import Data_Structure.List.DLList;
 import Data_Structure.Tree.BSTree;
 
-public abstract class Heap<T extends Comparable<T>>{
+public abstract class Heap<T extends Comparable<T>> extends BSTree<T>{
   BSTree<T> aBSTree;
   int size;
+
+  private class HeapNode<T> implements TreeNode<T>{
+    
+  }
 
   public Heap(){
     this.aBSTree = new BSTree<>();
