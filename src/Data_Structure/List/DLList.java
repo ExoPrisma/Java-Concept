@@ -301,10 +301,31 @@ public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
    * @param obj to test equality
    * @return true if both list contains same items in same order
    */
+  @SuppressWarnings("unchecked")
   @Override
   public boolean equals(Object obj){
-    //TODO
-    return true;
+    if(this == obj){
+      return true;
+    }
+    else if(obj == null || obj.getClass() != this.getClass()){
+      return false;
+    }
+    else{
+      DLList<T> otherDlList = (DLList<T>) obj;
+
+      Node<T> head1 = this.dummyHead;
+      Node<T> head2 = otherDlList.dummyHead;
+
+      while(head1 != null && head2 != null){
+        if(head1.data != head2.data){
+          return false;
+        }
+        head1 = head1.next;
+        head2 = head2.next;
+      }
+      return true;
+    }
+    
   }
 
   /** Return iterator
