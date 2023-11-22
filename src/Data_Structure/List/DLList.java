@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
-public class DLList<T> implements List<T>, Iterable<T>, Comparable<DLList<T>> {
+public class DLList<T> implements List<T>, Comparable<DLList<T>> {
   private final Node<T> dummyHead;
   private final Node<T> dummyTail;
   private int size;

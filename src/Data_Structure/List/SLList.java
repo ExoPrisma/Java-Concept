@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
-public class SLList<T> implements List<T>, Iterable<T>, Comparable<SLList<T>>{
+public class SLList<T> implements List<T>, Comparable<SLList<T>>{
 
   private final Node<T> dummyHead;
   private int size;
