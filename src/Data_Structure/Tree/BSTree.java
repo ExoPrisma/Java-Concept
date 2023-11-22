@@ -25,12 +25,21 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
   }
 
   public BSTNode(BSTNode<T> node){
-    this.data = node.data;
-    this.weight = node.weight;
-    this.depth = node.depth;
-    this.parent = new BSTNode<>(node.parent);
-    this.leftChild = new BSTNode<>(node.leftChild);
-    this.rightChild = new BSTNode<>(node.rightChild);
+    if(node == null){
+      this.data = null;
+      this.weight = 0;
+      this.depth = 0;
+      this.leftChild = null;
+      this.rightChild = null;
+    }
+    else{
+      this.data = node.data;
+      this.weight = node.weight;
+      this.depth = node.depth;
+      this.parent = null; 
+      this.leftChild = (node.leftChild == null) ? null : new BSTNode<>(node.leftChild);
+      this.rightChild = (node.rightChild == null) ? null : new BSTNode<>(node.rightChild);
+    }
   }
 
   /**
@@ -119,7 +128,9 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
     this.root = new BSTNode<>(rootData);
   }
 
-  //TODO copy constructor
+  public BSTree(BSTree<T> tree){
+    this.root = new BSTNode<>(tree.root);
+  }
 
   /** Get height of BST
    * 
