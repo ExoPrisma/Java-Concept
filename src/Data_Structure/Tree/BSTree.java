@@ -9,7 +9,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
   private static class BSTNode<T> implements TreeNode<T> {
   T data;
   int weight;
-  int depth = -1;
+  int depth;
   BSTNode<T> parent;
   BSTNode<T> leftChild;
   BSTNode<T> rightChild;
@@ -17,11 +17,19 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
   public BSTNode(T pData){
     this.data = pData;
     this.weight = -1;
+    this.depth = 0;
+    this.parent = null; 
+    this.leftChild = null;
+    this.rightChild = null;
   }
 
   public BSTNode(T data, int weight){
     this.data = data;
     this.weight = weight;
+    this.depth = 0;
+    this.parent = null; 
+    this.leftChild = null;
+    this.rightChild = null;
   }
 
   public BSTNode(BSTNode<T> node){
@@ -29,6 +37,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
       this.data = null;
       this.weight = 0;
       this.depth = 0;
+      this.parent = null; 
       this.leftChild = null;
       this.rightChild = null;
     }
