@@ -5,6 +5,6 @@ public interface Tree<T> {
   int size();
   int depth(T target);
   boolean insert(T element);
-  boolean delete(T element);
-  boolean search(T element);
+  boolean remove(T element);
+  boolean contain(T element);
 }
