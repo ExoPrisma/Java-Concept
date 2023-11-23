@@ -7,126 +7,126 @@ import Data_Structure.List.DLList;
 public class BSTree<T extends Comparable<T>> implements Tree<T> {
 
   private static class BSTNode<T> implements TreeNode<T> {
-  T data;
-  int weight;
-  int depth;
-  BSTNode<T> parent;
-  BSTNode<T> leftChild;
-  BSTNode<T> rightChild;
+    T data;
+    int weight;
+    int depth;
+    BSTNode<T> parent;
+    BSTNode<T> leftChild;
+    BSTNode<T> rightChild;
 
-  public BSTNode(T pData){
-    this.data = pData;
-    this.weight = -1;
-    this.depth = 0;
-    this.parent = null; 
-    this.leftChild = null;
-    this.rightChild = null;
-  }
-
-  public BSTNode(T data, int weight){
-    this.data = data;
-    this.weight = weight;
-    this.depth = 0;
-    this.parent = null; 
-    this.leftChild = null;
-    this.rightChild = null;
-  }
-
-  public BSTNode(BSTNode<T> node){
-    if(node == null){
-      this.data = null;
-      this.weight = 0;
+    public BSTNode(T pData){
+      this.data = pData;
+      this.weight = -1;
       this.depth = 0;
       this.parent = null; 
       this.leftChild = null;
       this.rightChild = null;
     }
-    else{
-      this.data = node.data;
-      this.weight = node.weight;
-      this.depth = node.depth;
+
+    public BSTNode(T data, int weight){
+      this.data = data;
+      this.weight = weight;
+      this.depth = 0;
       this.parent = null; 
-      this.leftChild = (node.leftChild == null) ? null : new BSTNode<>(node.leftChild);
-      this.rightChild = (node.rightChild == null) ? null : new BSTNode<>(node.rightChild);
-    }
-  }
-
-  /**
-   * 
-   * @return data from node
-   */
-  @Override
-  public T data() {
-    return this.data;
-  }
-
-  /**
-   * 
-   * @return parent of node
-   */
-  @Override
-  public TreeNode<T> parent() {
-    return this.parent;
-  }
-
-  /**
-   * 
-   * @return left child
-   */
-  public BSTNode<T> getLeftChild(){
-    return this.leftChild;
-  }
-
-  /**
-   * 
-   * @return right child
-   */
-  public BSTNode<T> getRightChild(){
-    return this.rightChild;
-  }
-
-  /**
-   * 
-   * @return list of children of node
-   */
-  @Override
-  public DLList<TreeNode<T>> children() {
-    DLList<TreeNode<T>> children = new DLList<TreeNode<T>>();
-    children.add(this.leftChild);
-    children.add(this.rightChild);
-    return children;
-  }
-
-  /**
-   * 
-   * @return true if has at least one child
-   */
-  @Override
-  public boolean hasChild(){
-    return (!children().isEmpty());
-  }
-
-  /** Equality
-   * 
-   * @param obj to test equality
-   * @return true if node contain same data 
-   */
-  @Override
-  @SuppressWarnings("unchecked")
-  public boolean equals(Object o){
-    if(this == o){
-      return true;
-    }
-    if(o == null || getClass() != o.getClass()){
-      return false;
+      this.leftChild = null;
+      this.rightChild = null;
     }
 
-    BSTNode<T> bstNode = (BSTNode<T>) o;
+    public BSTNode(BSTNode<T> node){
+      if(node == null){
+        this.data = null;
+        this.weight = 0;
+        this.depth = 0;
+        this.parent = null; 
+        this.leftChild = null;
+        this.rightChild = null;
+      }
+      else{
+        this.data = node.data;
+        this.weight = node.weight;
+        this.depth = node.depth;
+        this.parent = null; 
+        this.leftChild = (node.leftChild == null) ? null : new BSTNode<>(node.leftChild);
+        this.rightChild = (node.rightChild == null) ? null : new BSTNode<>(node.rightChild);
+      }
+    }
 
-    return (this.data == bstNode.data);
+    /**
+     * 
+     * @return data from node
+     */
+    @Override
+    public T data() {
+      return this.data;
+    }
+
+    /**
+     * 
+     * @return parent of node
+     */
+    @Override
+    public TreeNode<T> parent() {
+      return this.parent;
+    }
+
+    /**
+     * 
+     * @return left child
+     */
+    public BSTNode<T> getLeftChild(){
+      return this.leftChild;
+    }
+
+    /**
+     * 
+     * @return right child
+     */
+    public BSTNode<T> getRightChild(){
+      return this.rightChild;
+    }
+
+    /**
+     * 
+     * @return list of children of node
+     */
+    @Override
+    public DLList<TreeNode<T>> children() {
+      DLList<TreeNode<T>> children = new DLList<TreeNode<T>>();
+      children.add(this.leftChild);
+      children.add(this.rightChild);
+      return children;
+    }
+
+    /**
+     * 
+     * @return true if has at least one child
+     */
+    @Override
+    public boolean hasChild(){
+      return (!children().isEmpty());
+    }
+
+    /** Equality
+     * 
+     * @param obj to test equality
+     * @return true if node contain same data 
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean equals(Object o){
+      if(this == o){
+        return true;
+      }
+      if(o == null || getClass() != o.getClass()){
+        return false;
+      }
+
+      BSTNode<T> bstNode = (BSTNode<T>) o;
+
+      return (this.data == bstNode.data);
+    }
   }
-}
-
+  
   private BSTNode<T> root;
 
   public BSTree(){
@@ -139,6 +139,26 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
 
   public BSTree(BSTree<T> tree){
     this.root = new BSTNode<>(tree.root);
+  }
+
+  /** Get size of BST
+   * 
+   * @return size the number of node in BST
+   */
+  @Override
+  public int size() {
+    return sizeHelper(this.root);
+  }
+  /** Get size of BST from a node
+   * 
+   * @param current node of BST
+   * @return size the number of node in BST
+   */
+  private int sizeHelper(BSTNode<T> current){
+    if(current == null){
+      return 0;
+    }
+    return (sizeHelper(current.leftChild) + sizeHelper(current.rightChild) + 1);
   }
 
   /** Get height of BST
@@ -164,26 +184,6 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
     int right = heightHelper(root.rightChild, currentHeight + 1);
 
     return Math.max(left, right);
-  }
-
-  /** Get size of BST
-   * 
-   * @return size the number of node in BST
-   */
-  @Override
-  public int size() {
-    return sizeHelper(this.root);
-  }
-  /** Get size of BST from a node
-   * 
-   * @param current node of BST
-   * @return size the number of node in BST
-   */
-  private int sizeHelper(BSTNode<T> current){
-    if(current == null){
-      return 0;
-    }
-    return (sizeHelper(current.leftChild) + sizeHelper(current.rightChild) + 1);
   }
 
   /** Get depth of target node
@@ -264,8 +264,8 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
    * @return true if deletion successful
    */
   @Override
-  public boolean delete(T element) {
-    this.root = deleteHelper(this.root, element);
+  public boolean remove(T element) {
+    this.root = removeHelper(this.root, element);
     return this.root != null;
   }
   /** Delete first occurence element of BST with current root node
@@ -277,16 +277,16 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
    * @param element to be deleted from BST
    * @return truee if deletion successful
    */
-  private BSTNode<T> deleteHelper(BSTNode<T> current, T element){
+  private BSTNode<T> removeHelper(BSTNode<T> current, T element){
     if(current == null){
       return null;
     }
 
     if(element.compareTo(current.data) < 0){
-      current.leftChild = deleteHelper(current.leftChild, element);
+      current.leftChild = removeHelper(current.leftChild, element);
     }
     else if(element.compareTo(current.data) > 0) {
-      current.rightChild = deleteHelper(current.rightChild, element);
+      current.rightChild = removeHelper(current.rightChild, element);
     }
     else{
       if(current.leftChild == null){
@@ -296,7 +296,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
         return current.leftChild;
       }
       current.data = minValue(current.rightChild);
-      current.rightChild = deleteHelper(current.rightChild, current.data);
+      current.rightChild = removeHelper(current.rightChild, current.data);
     }
     return current;
   }
@@ -320,8 +320,8 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
    * @return true if search successful
    */
   @Override
-  public boolean search(T element) {
-    return searchHelper(this.root, element);
+  public boolean contain(T element) {
+    return containHelper(this.root, element);
   }
   /** Search first occurence element from BST with current root node
    * 
@@ -329,15 +329,15 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
    * @param element to be searched for
    * @return true if search successful
    */
-  private boolean searchHelper(BSTNode<T> current, T element){
+  private boolean containHelper(BSTNode<T> current, T element){
     if(current == null){
       return false;
     }
     if(element.compareTo(current.data) < 0) {
-      return searchHelper(current.leftChild, element);
+      return containHelper(current.leftChild, element);
     }
     else if(element.compareTo(current.data) > 0) {
-      return searchHelper(current.rightChild, element);
+      return containHelper(current.rightChild, element);
     }
     else{
       return true;
