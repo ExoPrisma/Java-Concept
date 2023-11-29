@@ -1,5 +1,3 @@
-//TODO FIX DEPTH within insert/deletion
-//TODO FIX size within insert/deletion
 package Data_Structure.Tree;
 
 import java.util.Iterator;
@@ -207,15 +205,16 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
   public boolean insert(T element) {
     if(this.root == null){
       this.root = new BSTNode<>(element);
+      this.root.depth = 0;
       return true;
     }
     this.size++;
     return insertHelper(this.root, element);
   }
-  /** Insert element into BS with root node current
+  /** Insert element into BST with root node current
    * 
-   * @param current root node of BS
-   * @param element to be inserted into BS
+   * @param current root node of BST
+   * @param element to be inserted into BST
    * @return true if insertion successful 
    */
   private boolean insertHelper(BSTNode<T> current, T element){
@@ -225,6 +224,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
     else if(element.compareTo(current.data) < 0) {
       if(current.leftChild == null) {
         current.leftChild = new BSTNode<>(element);
+        current.leftChild.depth = this.depth(element);
         return true;
       }
       else {
@@ -234,6 +234,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
     else {
       if(current.rightChild == null) {
         current.rightChild = new BSTNode<>(element);
+        current.rightChild.depth = this.depth(element);
         return true;
       }
       else {
@@ -396,6 +397,10 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
     }
   }
 
+  /** Iterator of BSTree
+   * 
+   * @return iterator over BSTree for in order traversal
+   */
   @Override
   public Iterator<T> iterator() {
     return (Iterator<T>) new InOrderIterator<>(this.root);
