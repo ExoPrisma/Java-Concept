@@ -2,11 +2,14 @@
 //TODO FIX size within insert/deletion
 package Data_Structure.Tree;
 
+import java.util.Iterator;
+
 import Data_Structure.List.DLList;
+import Data_Structure.Iterator.InOrderIterator;
 
-public class BSTree<T extends Comparable<T>> implements Tree<T> {
+public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
 
-  private static class BSTNode<T> implements TreeNode<T> {
+  protected static class BSTNode<T> implements TreeNode<T> {
     T data;
     int weight;
     int depth;
@@ -128,17 +131,16 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
   }
   
   private BSTNode<T> root;
+  int size;
 
   public BSTree(){
     this.root = null;
-  }
-
-  public BSTree(T rootData){
-    this.root = new BSTNode<>(rootData);
+    this.size = 0;
   }
 
   public BSTree(BSTree<T> tree){
     this.root = new BSTNode<>(tree.root);
+    this.size = tree.size;
   }
 
   /** Get size of BST
@@ -147,18 +149,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
    */
   @Override
   public int size() {
-    return sizeHelper(this.root);
-  }
-  /** Get size of BST from a node
-   * 
-   * @param current node of BST
-   * @return size the number of node in BST
-   */
-  private int sizeHelper(BSTNode<T> current){
-    if(current == null){
-      return 0;
-    }
-    return (sizeHelper(current.leftChild) + sizeHelper(current.rightChild) + 1);
+    return this.size;
   }
 
   /** Get height of BST
@@ -226,6 +217,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
       this.root = new BSTNode<>(element);
       return true;
     }
+    this.size++;
     return insertHelper(this.root, element);
   }
   /** Insert element into BS with root node current
@@ -266,6 +258,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
   @Override
   public boolean remove(T element) {
     this.root = removeHelper(this.root, element);
+    this.size--;
     return this.root != null;
   }
   /** Delete first occurence element of BST with current root node
@@ -409,5 +402,10 @@ public class BSTree<T extends Comparable<T>> implements Tree<T> {
         equal(node1.getLeftChild(), node2.getLeftChild()) &&
         equal(node1.getRightChild(), node2.getRightChild());
     }
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    return (Iterator<T>) new InOrderIterator<>(this.root);
   }
 }
