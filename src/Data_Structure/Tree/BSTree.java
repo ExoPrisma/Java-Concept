@@ -9,9 +9,8 @@ import Data_Structure.Iterator.InOrderIterator;
 
 public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
 
-  protected static class BSTNode<T> implements TreeNode<T> {
+  private static class BSTNode<T> implements TreeNode<T> {
     T data;
-    int weight;
     int depth;
     BSTNode<T> parent;
     BSTNode<T> leftChild;
@@ -19,16 +18,6 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
 
     public BSTNode(T pData){
       this.data = pData;
-      this.weight = -1;
-      this.depth = 0;
-      this.parent = null; 
-      this.leftChild = null;
-      this.rightChild = null;
-    }
-
-    public BSTNode(T data, int weight){
-      this.data = data;
-      this.weight = weight;
       this.depth = 0;
       this.parent = null; 
       this.leftChild = null;
@@ -38,7 +27,6 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
     public BSTNode(BSTNode<T> node){
       if(node == null){
         this.data = null;
-        this.weight = 0;
         this.depth = 0;
         this.parent = null; 
         this.leftChild = null;
@@ -46,7 +34,6 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
       }
       else{
         this.data = node.data;
-        this.weight = node.weight;
         this.depth = node.depth;
         this.parent = null; 
         this.leftChild = (node.leftChild == null) ? null : new BSTNode<>(node.leftChild);
@@ -94,7 +81,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
      */
     @Override
     public DLList<TreeNode<T>> children() {
-      DLList<TreeNode<T>> children = new DLList<TreeNode<T>>();
+      DLList<TreeNode<T>> children = new DLList<>();
       children.add(this.leftChild);
       children.add(this.rightChild);
       return children;
@@ -127,6 +114,11 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
       BSTNode<T> bstNode = (BSTNode<T>) o;
 
       return (this.data == bstNode.data);
+    }
+  
+    @Override
+    public String toString(){
+      return this.data.toString();
     }
   }
   
