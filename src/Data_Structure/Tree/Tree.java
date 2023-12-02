@@ -1,6 +1,7 @@
 package Data_Structure.Tree;
 
 public interface Tree<T> {
+  TreeNode<T> getRoot();
   int size();
   int height();
   int depth(T target);

@@ -133,6 +133,14 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
     this.size = tree.size;
   }
 
+  /** Get root of BST
+   * 
+   */
+  @Override
+  public TreeNode<T> getRoot(){
+    return this.root;
+  }
+
   /** Get size of BST
    * 
    * @return size the number of node in BST
