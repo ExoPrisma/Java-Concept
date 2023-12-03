@@ -48,7 +48,7 @@ public class Queue<T> {
 
     this.size--;
 
-    return this.queue.remove(1);
+    return this.queue.remove(0);
   }
 
   /** Peek next element
@@ -56,7 +56,7 @@ public class Queue<T> {
    * @return element first added to queue
    */
   public T peek(){
-    return (this.queue.get(1));
+    return (this.queue.get(0));
   }
 
   /** Clear queue
@@ -77,6 +77,14 @@ public class Queue<T> {
   @Override
   public String toString(){
     return this.queue.toString();
+  }
+
+  public static void main(String[] args) {
+    Queue<String> a = new Queue<>();
+    a.enqueue("a");
+    System.out.println(a.isEmpty());
+    a.dequeue();
+    System.out.println(a.isEmpty());
   }
 }
 
