@@ -63,13 +63,13 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
 
     if(index < size / 2){
       current = this.dummyHead.next;
-      for (int i = 0; i <= index; i++) {
+      for (int i = 0; i < index; i++) {
         current = current.next;
       }
     }
     else{
       current = this.dummyTail.prev;
-      for (int i = size - 1; i >= index; i--) {
+      for (int i = size - 1; i > index; i--) {
         current = current.prev;
       }
     }
@@ -91,13 +91,13 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
 
     if(index < this.size / 2){
       current = this.dummyHead.next;
-      for (int i = 0; i <= index; i++) {
+      for (int i = 0; i < index; i++) {
         current = current.next;
       }
     }
     else{
       current = this.dummyTail.prev;
-      for (int i = this.size - 1; i >= index; i--) {
+      for (int i = this.size - 1; i > index; i--) {
         current = current.prev;
       }
     }
@@ -132,7 +132,7 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     Node<T> current;
 
     if(index < this.size / 2){
-      current = this.dummyHead;
+      current = this.dummyHead.next;
       for(int i = 0; i < index; i++){
         current = current.next;
       }
@@ -165,14 +165,14 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     Node<T> current;
 
     if(index < this.size / 2){
-      current = this.dummyHead;
+      current = this.dummyHead.next;
       for(int i = 0; i < index; i++){
         current = current.next;
       }
     }
     else{
-      current = this.dummyTail;
-      for(int i = this.size - 1; i >= index; i--){
+      current = this.dummyTail.prev;
+      for(int i = this.size - 1; i > index; i--){
         current = current.prev;
       }
     }
@@ -407,14 +407,14 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     Node<T> current;
 
     if(index < this.size / 2){
-      current = this.dummyHead;
+      current = this.dummyHead.next;
       for(int i = 0; i < index; i++){
         current = current.next;
       }
     }
     else{
-      current = this.dummyTail;
-      for(int i = this.size - 1; i >= index; i--){
+      current = this.dummyTail.prev;
+      for(int i = this.size - 1; i > index; i--){
         current = current.prev;
       }
     }
@@ -424,6 +424,16 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     current.prev = newNode;
 
     this.size++;
+  }
+
+  public static void main(String[] args) {
+    DLList<String> a = new DLList<>();
+    a.add("a");
+    a.add("b");
+    a.add("c");
+    a.add("d");
+    a.add("e");
+    System.out.println(a);
   }
 }
 
