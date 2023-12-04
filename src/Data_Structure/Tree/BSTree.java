@@ -233,6 +233,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
       if(current.leftChild == null) {
         current.leftChild = new BSTNode<>(element);
         current.leftChild.depth = this.depth(element);
+        current.leftChild.parent = current; 
         return true;
       }
       else {
@@ -243,6 +244,7 @@ public class BSTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
       if(current.rightChild == null) {
         current.rightChild = new BSTNode<>(element);
         current.rightChild.depth = this.depth(element);
+        current.rightChild.parent = current;
         return true;
       }
       else {
