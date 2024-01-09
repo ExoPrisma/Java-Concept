@@ -15,6 +15,11 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     Node<T> next;
     Node<T> prev;
 
+    /** Constructor
+     * Create Node with data & weight
+     * @param data of node
+     * @param weight of node
+     */
     Node(T data, int weight) {
       this.data = data;
       this.weight = weight;
@@ -23,6 +28,9 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     }
   }
 
+  /** Constructor
+   * Creates empty Singly Linked list
+   */
   public DLList(){
     this.dummyHead = new Node<T>(null, -1);
     this.dummyTail = new Node<T>(null, -1);

@@ -15,6 +15,11 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     int weight;
     Node<T> next;
 
+    /** Constructor
+     * Create Node with data & weight
+     * @param data of node
+     * @param weight of node
+     */
     Node(T data, int weight) {
       this.data = data;
       this.weight = weight;
@@ -22,6 +27,9 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     }
   }
 
+  /** Constructor
+   * Creates empty Singly Linked list
+   */
   public SLList() {
     this.dummyHead = new Node<T>(null, -1);
     this.size = 0;
@@ -36,7 +44,6 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
   public boolean isEmpty() {
     return (this.size == 0);
   }
-
 
   @Override
   public T get(int index) {
