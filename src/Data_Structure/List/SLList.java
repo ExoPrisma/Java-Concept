@@ -27,29 +27,17 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     this.size = 0;
   }
 
-  /**
-   *
-   * @return size of doubly linked list
-   */
   @Override
   public int size() {
     return this.size;
   }
 
-  /**
-  *
-  * @return true if doubly linked list empty
-  */
   @Override
   public boolean isEmpty() {
     return (this.size == 0);
   }
 
-  /** Get element at index
-   * 
-   * @param index of element in singly linked list
-   * @return element at index 
-   */
+
   @Override
   public T get(int index) {
     isInvalidIndex(index);
@@ -63,11 +51,6 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     return current.data;
   }
 
-  /** Set data at index
-   * 
-   * @param index of element in doubly linked list
-   * @param element that should be added to list
-   */
   @Override
   public void set(int index, T element) {
     isInvalidIndex(index);
@@ -81,10 +64,6 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     current.data = element;
   }
 
-  /** Add element at end
-   * 
-   * @param element that will be added to list
-   */
   @Override
   public void add(T element) {
 
@@ -97,11 +76,6 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     this.size++;
   }
 
-  /** Add element at index
-   * 
-   * @param index of element to be added in list
-   * @param element that will be added to list
-   */
   @Override
   public void add(int index, T element) {
     isInvalidIndex(index);
@@ -117,11 +91,32 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     this.size++;
   }
 
-  /** Remove element at index
-   *
-   * @param index of element that will be removed
-   * @return element that was removed
-   */
+  @Override
+  public void add(T element, int weight) {
+    Node<T> current = this.dummyHead;
+
+    while(current.next != null){
+      current = current.next;
+    }
+    current.next = new Node<T>(element, weight);
+    this.size++;
+  }
+
+  @Override
+  public void add(int index, T element, int weight) {
+    isInvalidIndex(index);
+
+    Node<T> current = this.dummyHead;
+    for(int i = 0; i < index; i++){
+      current = current.next;
+    }
+
+    Node<T> temp = current.next;
+    current.next = new Node<T>(element, weight);
+    current.next.next = temp;
+    this.size++;
+  }
+
   @Override
   public T remove(int index) {
     isInvalidIndex(index);
@@ -141,11 +136,6 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     return temp.data;
   }
 
-  /** Remove first occurence of element
-   * 
-   * @param element to be removed
-   * @return element that is removed
-   */
   @Override
   public T remove(T element) {
     
@@ -165,11 +155,6 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     return null;
   }
 
-  /** Remove all occurence of element
-   * 
-   * @param element to be removed
-   * @return number of element removed
-   */
   @Override
   public int removeAll(T element) {
 
@@ -194,11 +179,6 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     return count;
   }
 
-  /** Contain element
-   *
-   * @param element searching for in list
-   * @return true if element found
-   */
   @Override
   public boolean contain(T element) {
 
@@ -213,10 +193,6 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     return false;
   }
 
-  /** Clone list
-   *
-   * @return copy of singly linked list
-   */
   @Override
   public List<T> clone() {
     SLList<T> newSLList = new SLList<>();
@@ -230,9 +206,6 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     return newSLList;
   }
 
-  /** Clear list
-   *  
-   */
   @Override
   public void clear() {
     this.dummyHead.next = null;
@@ -353,40 +326,5 @@ public class SLList<T> implements List<T>, Comparable<SLList<T>>{
     if (index < 0 && index >= this.size){
       throw new IndexOutOfBoundsException(index + " is Index Out of Bound, List Size is " + this.size);
     }
-  }
-
-  /** Add element at end with weight
-   *
-   * @param element that will be added to list
-   * @param weight of element
-   */
-  public void add(T element, int weight) {
-    Node<T> current = this.dummyHead;
-
-    while(current.next != null){
-      current = current.next;
-    }
-    current.next = new Node<T>(element, weight);
-    this.size++;
-  }
-
-  /** Add element at index with weight
-   *
-   * @param index of element to be added in list
-   * @param element that will be added to list
-   * @param weight of element to be added in list
-   */
-  public void add(int index, T element, int weight) {
-    isInvalidIndex(index);
-
-    Node<T> current = this.dummyHead;
-    for(int i = 0; i < index; i++){
-      current = current.next;
-    }
-
-    Node<T> temp = current.next;
-    current.next = new Node<T>(element, weight);
-    current.next.next = temp;
-    this.size++;
   }
 }

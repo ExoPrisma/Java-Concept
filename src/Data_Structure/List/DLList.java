@@ -30,19 +30,11 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     this.dummyTail.prev = this.dummyHead;
   }
 
-  /**
-   *
-   * @return size of doubly linked list
-   */
   @Override
   public int size() {
     return this.size;
   }
 
-  /**
-   *
-   * @return true if doubly linked list empty
-   */
   @Override
   public boolean isEmpty() {
     return (this.size() == 0);
@@ -52,8 +44,6 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
    * <p>
    * Starts at dummy head if the index is less than half the size, else starts at dummy tail
    * </p>
-   * @param index of element in doubly linked list
-   * @return element at index
    */
   @Override
   public T get(int index) {
@@ -80,8 +70,6 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
    * <p>
    * Starts at dummy head if the index is less than half the size, else starts at dummy tail
    * </p>
-   * @param index of element in doubly linked list
-   * @param element that should be added to list
    */
   @Override
   public void set(int index, T element) {
@@ -104,10 +92,6 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     current.data = element;
   }
 
-  /** Add element at end
-   *
-   * @param element that will be added to list
-   */
   @Override
   public void add(T element) {
     Node<T> newNode = new Node<T>(element, -1);
@@ -118,11 +102,6 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     this.size++;
   }
 
-  /** Add element at index
-   *
-   * @param index of element to be added in list
-   * @param element that will be added to list
-   */
   @Override
   public void add(int index, T element) {
     isInvalidIndex(index);
@@ -151,12 +130,48 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     this.size++;
   }
 
+  @Override
+  public void add(T element, int weight) {
+    Node<T> newNode = new Node<T>(element, weight);
+    newNode.next = this.dummyTail;
+    newNode.prev = this.dummyTail.prev;
+    this.dummyTail.prev.next = newNode;
+    this.dummyTail.prev = newNode;
+    this.size++;
+  }
+
+  @Override
+  public void add(int index, T element, int weight) {
+    isInvalidIndex(index);
+
+    Node<T> newNode = new Node<T>(element, weight);
+
+    Node<T> current;
+
+    if(index < this.size / 2){
+      current = this.dummyHead.next;
+      for(int i = 0; i < index; i++){
+        current = current.next;
+      }
+    }
+    else{
+      current = this.dummyTail.prev;
+      for(int i = this.size - 1; i > index; i--){
+        current = current.prev;
+      }
+    }
+
+    newNode.prev = current.prev;
+    newNode.next = current;
+    current.prev = newNode;
+
+    this.size++;
+  }
+  
   /** Remove element at index
    * <p>
    *  Starts at dummy head if the index is less than half the size, else starts at dummy tail
    * </p>
-   * @param index of element that will be removed
-   * @return element that was removed
    */
   @Override
   public T remove(int index) {
@@ -185,11 +200,6 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     return current.data;
   }
 
-  /** Remove first occurence of element
-   *
-   * @param element to be removed
-   * @return element that is removed
-   */
   @Override
   public T remove(T element) {
     Node<T> current = this.dummyHead;
@@ -205,11 +215,6 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     return null;
   }
 
-  /** Remove all occurence of element
-   *
-   * @param element to be removed
-   * @return number of element removed
-   */
   @Override
   public int removeAll(T element) {
     Node<T> current = this.dummyHead;
@@ -226,11 +231,6 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     return count;
   }
 
-  /** Contain element
-   *
-   * @param element searching for in list
-   * @return true if element found
-   */
   @Override
   public boolean contain(T element) {
     Node<T> current = this.dummyHead;
@@ -244,10 +244,6 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     return false;
   }
 
-  /** Clone list
-   *
-   * @return copy of doubly linked list
-   */
   @Override
   public List<T> clone() {
     DLList<T> newDLList = new DLList<T>();
@@ -261,9 +257,6 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     return newDLList;
   }
 
-  /** Clear list
-   *
-   */
   @Override
   public void clear() {
     this.dummyHead.next = this.dummyTail;
@@ -377,63 +370,6 @@ public class DLList<T> implements List<T>, Comparable<DLList<T>> {
     if (index < 0 && index >= this.size){
       throw new IndexOutOfBoundsException(index + " is Index Out of Bound, List Size is " + this.size);
     }
-  }
-
-  /** Add element at end with weight
-   *
-   * @param element that will be added to list
-   * @param weight of element to be added in list
-   */
-  public void add(T element, int weight) {
-    Node<T> newNode = new Node<T>(element, weight);
-    newNode.next = this.dummyTail;
-    newNode.prev = this.dummyTail.prev;
-    this.dummyTail.prev.next = newNode;
-    this.dummyTail.prev = newNode;
-    this.size++;
-  }
-
-  /** Add element at index with weight
-   *
-   * @param index of element to be added in list
-   * @param element that will be added to list
-   * @param weight of element to be added in list
-   */
-  public void add(int index, T element, int weight) {
-    isInvalidIndex(index);
-
-    Node<T> newNode = new Node<T>(element, weight);
-
-    Node<T> current;
-
-    if(index < this.size / 2){
-      current = this.dummyHead.next;
-      for(int i = 0; i < index; i++){
-        current = current.next;
-      }
-    }
-    else{
-      current = this.dummyTail.prev;
-      for(int i = this.size - 1; i > index; i--){
-        current = current.prev;
-      }
-    }
-
-    newNode.prev = current.prev;
-    newNode.next = current;
-    current.prev = newNode;
-
-    this.size++;
-  }
-
-  public static void main(String[] args) {
-    DLList<String> a = new DLList<>();
-    a.add("a");
-    a.add("b");
-    a.add("c");
-    a.add("d");
-    a.add("e");
-    System.out.println(a);
   }
 }
 
