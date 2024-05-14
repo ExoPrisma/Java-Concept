@@ -24,7 +24,7 @@ public class Queue<T> {
    * @return true if empty
    */
   public boolean isEmpty(){
-    return (this.size == 0);
+    return (this.size == 0 && this.queue.isEmpty());
   }
 
   /** Enqueue element to queue
